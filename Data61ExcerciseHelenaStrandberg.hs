@@ -7,52 +7,52 @@ removeMultiples:: [Int] -> [Int]
 removeMultiples xs = filter findMultiples xs
 
 findMultiples:: Int -> Bool
-findMultiples x 
+findMultiples x
   | mod x 35 == 0  = True
   | mod x 7  == 0  = False
   | mod x 5  == 0  = False
   | otherwise      = True
-      
+
 -- problem 2
 
 dollars:: String -> String
 dollars "" = "zero dollars and zero cents"
-dollars s  
+dollars s
   | isStringValid s == False = "Invalid string. You must input an int, float or double!"
-  | otherwise                = concat [numToText dollars, " dollars and ", 
+  | otherwise                = concat [numToText dollars, " dollars and ",
                                        numToText (cents), " cents"]
   where (dollars, cents) = splitIntoDollarsAndCents s
-               
+
 isStringValid:: String -> Bool
 isStringValid "" = True
-isStringValid s 
+isStringValid s
   | all isDigit [ x | x <- s, not (x `elem` ".") ] == False = False
-  | otherwise                      = True
+  | otherwise                                               = True
 
 
 splitIntoDollarsAndCents:: String -> (Int, Int)
 splitIntoDollarsAndCents "" = (0, 0)
-splitIntoDollarsAndCents s = do 
-                               let [wholeDollars, cents] = splitIntoList s
-                               textToNum [wholeDollars, (concat ["0.",cents])]
-                                
+splitIntoDollarsAndCents s  =
+  do
+    let [wholeDollars, cents] = splitIntoList s
+    textToNum [wholeDollars, (concat ["0.",cents])]
+
 splitIntoList:: String -> [String]
 splitIntoList "" = ["", ""]
-splitIntoList s 
+splitIntoList s
   | length xs == 1 = [ head xs , ""]
   | otherwise      = xs
     where xs = splitOn "." s
-    
 
 textToNum:: [String] -> (Int, Int)
 textToNum [] = (0, 0)
 textToNum [wholeDollars, cents] =
-  (read  $ zeroIfEmpty wholeDollars:: Int, 
-   round $ (read $ zeroIfEmpty cents:: Double)*100)
-                           
+  (read  $ zeroIfEmpty wholeDollars:: Int,
+   round $ (read $ zeroIfEmpty cents:: Double) * 100)
+
 zeroIfEmpty:: String -> String
 zeroIfEmpty "" = "0"
-zeroIfEmpty s = s
+zeroIfEmpty s  = s
 
 numToText:: Int -> String
 numToText num = case num of 0 -> "zero"
@@ -69,21 +69,11 @@ numToText num = case num of 0 -> "zero"
                             11 -> "eleven"
                             20 -> "twenty"
                             -- reduce ....?
-                            
+
 
 -- map first number and size of the rest to convert int into number word.... iterate..
 numeral:: (Int, Int) -> String
 numeral (firstNumber, sizeOfEntireNumber) = ""
-
-
-
-
-
-
-
-
-
-
 
 
 
